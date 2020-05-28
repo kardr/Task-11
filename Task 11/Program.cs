@@ -21,14 +21,21 @@ namespace Task_11
 
         public bool Match_patter()
         {
-            return r.IsMatch(text);
+            MatchCollection m = r.Matches(text);
+            foreach (Match x in m)
+            {
+                Console.WriteLine("Содержит\n\r");
+                return true;
+            }
+            Console.WriteLine("Не содержит\n\r");
+            return false;
         }
 
         public void Output_on_display()
         {
-            MatchCollection m = r.Matches(text);
-            foreach (Match x in m)
-                Console.Write(x.Value);
+             MatchCollection m = r.Matches(text);
+              foreach (Match x in m)
+                  Console.Write(x.Value + "\n\r");
         }
 
         public string Delete()
@@ -41,32 +48,40 @@ namespace Task_11
                 int l = x.Value.Length;
                 s = s.Remove(i, l);
             }
+            Console.WriteLine(s);
             return s;
         }
-
-        public string Text
-        {
-            get { return text; }
-            set { text = value; }
-        }
+        
         public Regex R
         {
             get { return r; }
             set { r = value; }
         }
-    
+        public string Text
+        {
+            get { return text; }
+            set { text = value; }
+        }
 
     }
     class Program
     {
         static void Main(string[] args)
         {
-            Regular myReg = new Regular("[^.В!]", "Добрый день. Как Ваше настроение? Всего доброго!");
+            string text = "Мальчик проснулся в 11:50, а должен был проснуться в 09:00.";
+            Console.WriteLine("ТЕКСТ:  " + text + "\n\r");
+            string pattern = ("[0-2][0-9]:[0-6][0-9]");
+            Console.WriteLine("ШАБЛОН:  " + pattern + "\n\r");
+            Regular myReg = new Regular(pattern,text);
+            Console.WriteLine("СОДЕРЖИТ ЛИ ТЕКСТ ФРАГМЕНТЫ, СООТВЕТСТВУЮЩИЕ ШАБЛОНУ ПОЛЯ:");
+            myReg.Match_patter();
+            Console.WriteLine("ФРАГМЕНТЫ ТЕКСТА, СООТВЕТСТВУЮЩИЕ ШАБЛОНУ ПОЛЯ:");
             myReg.Output_on_display();
+            Console.WriteLine();
+            Console.WriteLine("УДАЛЕНИЕ ИЗ ТЕКСТА ФРАГМЕНТОВ, СООТВЕТСТВУЮЩИХ ШАБЛОНУ ПОЛЯ:");
             myReg.Text = myReg.Delete();
             myReg.Output_on_display();
             Console.ReadKey();
         }
     }
 }
- 
