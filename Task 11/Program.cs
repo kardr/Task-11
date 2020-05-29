@@ -24,10 +24,8 @@ namespace Task_11
             MatchCollection m = r.Matches(text);
             foreach (Match x in m)
             {
-                Console.WriteLine("Содержит\n\r");
                 return true;
             }
-            Console.WriteLine("Не содержит\n\r");
             return false;
         }
 
@@ -74,7 +72,14 @@ namespace Task_11
             Console.WriteLine("ШАБЛОН:  " + pattern + "\n\r");
             Regular myReg = new Regular(pattern,text);
             Console.WriteLine("СОДЕРЖИТ ЛИ ТЕКСТ ФРАГМЕНТЫ, СООТВЕТСТВУЮЩИЕ ШАБЛОНУ ПОЛЯ:");
-            myReg.Match_patter();
+            if (myReg.Match_patter())
+            {
+                Console.WriteLine("Содержит\n\r");
+            }
+            else
+            {
+                Console.WriteLine("Не содержит\n\r");
+            }
             Console.WriteLine("ФРАГМЕНТЫ ТЕКСТА, СООТВЕТСТВУЮЩИЕ ШАБЛОНУ ПОЛЯ:");
             myReg.Output_on_display();
             Console.WriteLine();
